@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>JSON to Plain Old X Object</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="app.js"></script>
+</head>
+
+<body>
+    <div class="half">
+        <div class=" flex-container">
+            <textarea id="input" class="fill-width" style="height:500px">
+{ 
+    "name":"Foo Barsen",
+    "email":"a.b@example.com",
+    "age": 30,
+    "salary": 123.123,
+    "asd": {
+            "cool": true
+    },
+    "GUID": "3a458809-f39a-43da-b324-2a1373e85bc0",
+    "asd2": null,
+    "arrayOfInt": [ 1, 2, 3, 4, 5, 6, 7 ],
+    "ARRAY_OF_STRINGS": [ "asd" ],
+    "ARRAY-of_Objects": [ { "super-cool": true } ]
+}
+            </textarea>
+        </div>
+        <input id="submit" type="button" value="convert" class="full" />
+        <div id="options">
+
+        </div>
+    </div>
+    <div class="half">
+        <select id="language">
+            <option>C# (with Newtonsoft.Json annotations)</option>
+        </select>
+        <pre id="output" class="fill-width output" readonly>result</pre>
+    </div>
+
+    <script>
+        const elemIn = document.getElementById("input");
+        const elemSubmit = document.getElementById("submit");
+        const elemLanguage = document.getElementById("language"); // currently not hooked up.
+        const elemOptions = document.getElementById("options"); // currently Read-only
+        const elemOut = document.getElementById("output");
+
+        elemSubmit.onclick = () => {
+            const input = elemIn.value;
+            elemOut.innerText = convertToX(input, convertToCSharp);
+        }
+
+        // Temporary:
+        const options = createDefaultCSharpOptions();
+        Object.entries(options).forEach(element => {
+            elemOptions.innerHTML += `<p>${element[0]}: ${element[1]}</p>`;
+        });
+    </script>
+</body>
+
+</html>

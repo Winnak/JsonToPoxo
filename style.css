@@ -1,0 +1,20 @@
+
+.half {
+    margin: 1%;
+    width: 48%;
+    float: left;
+}
+
+.full {
+    margin: 1%;
+    float: none;
+    width: 98%;
+}
+
+.output {
+    overflow-x: auto
+}
+
+/* https://stackoverflow.com/posts/13960683/revisions */
+.flex-container { display: flex; }
+.fill-width { flex: 1; }
