@@ -122,16 +122,20 @@ function getCSharpTypeString([varName, varType]: [string, any], options: CSharpC
             if (varType == null) {
                 return ["object /* unable to determine */", null];
             }
+
             if (Array.isArray(varType)) {
                 if (varType.length > 0) {
                     // TODO: Check if the data is uniform.
-                    const arrayType = getCSharpTypeString([varName, varType[0]], options);
+                    const arrayType = getCSharpTypeString([singularize(varName), varType[0]], options);
+
                     return [arrayType[0] + "[]", arrayType[1]];
                 }
                 return ["object[]", null]
             }
+
             if (Object.entries(varType).length > 0) {
                 const newType = options.varNameConversion(varName)
+                
                 return [newType, [newType, varType]];
             }
 

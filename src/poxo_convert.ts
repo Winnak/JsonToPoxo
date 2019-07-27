@@ -81,8 +81,29 @@ function pascalCase(someString: string, capitalizeAbbreviations: boolean = false
     // e.g. barSome__Foo_thing_ -> BarSomeFooThing
     someString = someString.replace(/_+(.)|^([a-z])/g, (match, p1, p2, _o, _s) =>
         p1 ? capitalize(p1) :
-        p2 ? capitalize(p2) :
-        match);
+            p2 ? capitalize(p2) :
+                match);
 
     return someString;
+}
+
+/**
+ * Converts the ending of a string to it's singular form where applicable.
+ * e.g.
+ * singularize(Cars) -> Car
+ * singularize(Entries) -> Entry
+ * singularize(Sheep) -> Sheep
+ *
+ * @remark FIXME: Sharpies -> Sharp
+ * @remark FIXME: Cookies -> Cooky
+ * @param someString string to be converted
+ */
+function singularize(someString: string): string {
+    if (someString.endsWith("ies")) {
+        return someString.substr(0, someString.length - 3) + "y";
+    } else if (someString.endsWith("s")) {
+        return someString.substr(0, someString.length - 1);
+    } else {
+        return someString;
+    }
 }

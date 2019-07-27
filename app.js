@@ -34,6 +34,17 @@ function pascalCase(someString, capitalizeAbbreviations = false) {
             match);
     return someString;
 }
+function singularize(someString) {
+    if (someString.endsWith("ies")) {
+        return someString.substr(0, someString.length - 3) + "y";
+    }
+    else if (someString.endsWith("s")) {
+        return someString.substr(0, someString.length - 1);
+    }
+    else {
+        return someString;
+    }
+}
 function createDefaultCSharpOptions() {
     return {
         varNameConversion: s => pascalCase(sanitizeVariableName(s), false),
@@ -111,7 +122,7 @@ function getCSharpTypeString([varName, varType], options) {
             }
             if (Array.isArray(varType)) {
                 if (varType.length > 0) {
-                    const arrayType = getCSharpTypeString([varName, varType[0]], options);
+                    const arrayType = getCSharpTypeString([singularize(varName), varType[0]], options);
                     return [arrayType[0] + "[]", arrayType[1]];
                 }
                 return ["object[]", null];
